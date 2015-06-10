@@ -184,6 +184,10 @@ varying vec3 v_ambientLight;
 
 #endif // lightingFlag
 
+#ifdef reflectionFlag
+varying vec4 v_posInWorld;
+#endif // reflectionFlag
+
 void main() {
 	#ifdef diffuseTextureFlag
 		v_diffuseUV = u_diffuseUVTransform.xy + a_texCoord0 * u_diffuseUVTransform.zw;
@@ -238,6 +242,10 @@ void main() {
 		vec4 pos = u_worldTrans * vec4(a_position, 1.0);
 	#endif
 		
+	#ifdef reflectionFlag
+		v_posInWorld = u_worldTrans * a_position;
+	#endif
+
 	gl_Position = u_projViewTrans * pos;
 		
 	#ifdef shadowMapFlag

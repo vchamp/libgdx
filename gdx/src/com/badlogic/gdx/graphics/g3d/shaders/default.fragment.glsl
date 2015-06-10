@@ -104,7 +104,20 @@ uniform vec4 u_fogColor;
 varying float v_fog;
 #endif // fogFlag
 
+#ifdef reflectionFlag
+varying vec4 v_posInWorld;
+uniform float u_clipY;
+#endif // reflectionFlag
+
 void main() {
+
+	#ifdef reflectionFlag
+		if (v_posInWorld.y > u_clipY) {
+			discard;
+			return;
+		}
+	#endif // reflectionFlag
+
 	#if defined(normalFlag) 
 		vec3 normal = v_normal;
 	#endif // normalFlag
